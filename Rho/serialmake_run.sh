@@ -1,13 +1,13 @@
-rm simple_rho
-g++ simple_rho.cpp -o simple_rho -lgmp
+rm serial_simple_rho
+g++ serial_simple_rho.cpp -o serial_simple_rho -lgmp
 
 #40
-#time ./simple_rho 326534583607312462329943
+time ./serial_simple_rho 326534583607312462329943
 
 #50
-#time ./simple_rho 176642557345698997249490224633
+#time ./serial_simple_rho 176642557345698997249490224633
 
 #60
-time ./simple_rho 85273860618442999248370100965756271
+#time ./serial_simple_rho 85273860618442999248370100965756271
 #64
-#time ./simple_rho 68188613090565339117834680141345080003
+#time ./serial_simple_rho 68188613090565339117834680141345080003
