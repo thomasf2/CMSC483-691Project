@@ -3,15 +3,18 @@
 #
 cmake_minimum_required (VERSION 3.8)
 find_package(GMP REQUIRED)
-
 include_directories(${MPFR_INCLUDE_DIRS})
-# SET(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} --enable-cxx")
-set(LIBS ${LIBS} gmp gmpxx)
+
+set(THREADS_PREFER_PTHREAD_FLAG ON)
+find_package(Threads REQUIRED)
+
+set(LIBS ${LIBS} gmp gmpxx Threads::Threads)
 
 file(GLOB THE_SOURCE
 	"src/**/*.h"
 	"src/**/*.cpp"
-    "*.h"
+	"src/*.h"
+	"src/*.cpp"
     "main.cpp"
 )
 message(STATUS "SRC is ${THE_SOURCE}")
