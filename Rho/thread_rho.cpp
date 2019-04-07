@@ -88,19 +88,17 @@ int main(int argc, char *argv[])  //Driver Program
 {
     srand(time(NULL));
 
-    //char inputStr[1024];
-    /*
-     mpz_t is the type defined for GMP integers.
-     It is a pointer to the internals of the GMP integer data structure
-    */
     mpz_class n(argv[1]);
-
-    //printf ("Enter your number: ");
-    //scanf("%1023s" , inputStr); /* NOTE: never every write a call scanf ("%s", inputStr);
-    //You are leaving a security hole in your code. */
     mpz_class p;
     mpz_class q;
-    //gmp_printf("Read Input number: %Zd\n", n);
+    int thread_id[8];
+    pthread_t threads[8];
+    
+    for(int i = 0 i < 8; i++){
+      thread_id[i] = pthread_create(&threads[i], NULL, pollard_rho, n); 
+    }
+    
+    gmp_printf("Read Input number: %Zd\n", n);
     gmp_printf("srarting pollard rho\n");
     p = pollard_rho(n);
     gmp_printf("done pollard rho, finding q by division\n");

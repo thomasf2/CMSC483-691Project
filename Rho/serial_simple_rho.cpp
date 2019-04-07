@@ -5,7 +5,7 @@
 #include "gmp.h"
 #include "gmpxx.h"
 #include "assert.h"
-@include "pthread.h"
+
 
 bool isprime(mpz_class n){
   if (n == 2){return true; }
@@ -38,6 +38,7 @@ mpz_class gcd(mpz_class a,mpz_class b)    //Euclidean GCD recursive fn
     if(b==0)
         return a;
     else{
+      //recur_depth++;
       return gcd(b,a%b);
     }
 }
@@ -105,6 +106,7 @@ int main(int argc, char *argv[])  //Driver Program
     p = pollard_rho(n);
     gmp_printf("done pollard rho, finding q by division\n");
     q = n / p;
+
 
     //if( !(isprime(p) or isprime(q))){
     //  printf("SOMETHING WENT WRONG\n");
