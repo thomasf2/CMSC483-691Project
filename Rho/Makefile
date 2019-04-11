@@ -1,6 +1,13 @@
+CXX=g++
+TARGET=thread_rho
+CXXFLAGS=--std=c++11
+LDFLAGS=-lgmpxx -lgmp -lpthread
 
+.PHONY: all clean
 
-make:
-	g++ -std=c++11 thread_rho.cpp -o thread_rho -lgmpxx -lgmp -lpthread
+all: $(TARGET)
+
+$(TARGET): $(TARGET).cpp
+	$(CXX) $(CXXFLAGS) $< -o $@ $(LDFLAGS)
 clean:
-	rm thread_rho
+	rm $(TARGET)
