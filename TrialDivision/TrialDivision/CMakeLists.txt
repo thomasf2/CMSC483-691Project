@@ -5,6 +5,9 @@ cmake_minimum_required (VERSION 3.8)
 
 # add_definitions( -DLOG_OUTPUT )
 
+set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/bin/${CMAKE_SYSTEM_NAME}_${CMAKE_BUILD_TYPE})
+
+
 find_package(GMP REQUIRED)
 include_directories(${MPFR_INCLUDE_DIRS})
 

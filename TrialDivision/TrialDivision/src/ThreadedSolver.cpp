@@ -32,7 +32,7 @@ TDivResult ThreadedSolver::solve(mpz_class & n)
         #endif
         the_result.p = 2;
         the_result.q = n / 2;
-        return the_result
+        return the_result;
     }
 
     #if defined(LOG_OUTPUT)
