@@ -2,6 +2,9 @@
 # project specific logic here.
 #
 cmake_minimum_required (VERSION 3.8)
+
+# add_definitions( -DLOG_OUTPUT )
+
 find_package(GMP REQUIRED)
 include_directories(${MPFR_INCLUDE_DIRS})
 

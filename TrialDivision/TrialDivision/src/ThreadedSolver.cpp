@@ -27,12 +27,19 @@ TDivResult ThreadedSolver::solve(mpz_class & n)
 
     if (n % 2 == 0) {
         // We should stop here. The key is bad and it should feel bad.
+        #if defined(LOG_OUTPUT)
         std::cout << "The key is a factor of two" << std::endl;
+        #endif
+        the_result.p = 2;
+        the_result.q = n / 2;
+        return the_result
     }
 
+    #if defined(LOG_OUTPUT)
     std::cout << "Trying to find the prime factors of " << n << ". Using " << m_NumThreads << " threads." << std::endl;
 
     std::cout << "The root is " << div_start << std::endl;
+    #endif
 
     for (int i = 0; i < m_NumThreads; i++)
     {
@@ -43,8 +50,10 @@ TDivResult ThreadedSolver::solve(mpz_class & n)
             low = low == 0 ? 2 : low;
             high = (div_start - high < chunk_size) ? div_start : high;
             high = (high % 2 == 0) ? high + 1 : high;
-
+            
+            #if defined(LOGOUT_PUT)
             std::cout << "Thread " << i << " looking for prime factors from " << low << " to " << high << std::endl;
+            #endif
 
             while (true) {
 
@@ -53,8 +62,10 @@ TDivResult ThreadedSolver::solve(mpz_class & n)
                 }
 
                 if ((n % high) == 0) {
-                    p = high;
+                    #if defined(LOGOUT_PUT)
                     std::cout << "Thread " << i << " has found a prime. high = " << high << " low = " << low << std::endl;
+                    #endif
+                    p = high;
                     running = false;
                     cond.notify_all();
                     return;
