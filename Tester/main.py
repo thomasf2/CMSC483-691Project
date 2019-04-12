@@ -1,4 +1,5 @@
 from Crypto.Util import number
+import pandas as pd
 import os
 import getopt
 import sys
@@ -7,7 +8,7 @@ import time
 
 def log(msg):
     print(msg)
-    f.write(msg)
+    # f.write(msg)
 
 f = None
 
@@ -53,17 +54,16 @@ if __name__ == "__main__":
         elif arg in ("-t", "--threads"):
             threads = int(val)
 
-
+    filename = f'{program}.csv'
     
-
-    timestamp = time.strftime("%Y%m%d-%H%M%S")
-    filename = f'logs/{program}/{length * 2}-bits-{timestamp}.txt'
-
-    os.makedirs(os.path.dirname(filename), exist_ok=True)
-
-    f = open(filename, "w")
-
+    data = None
+    columns=['Bits','Passed','Time(ms)','Time(sec)','Time(mins)','n','p','q']
     
+    if os.path.exists(filename):
+        data = pd.read_csv(filename)
+    else:
+        data = pd.DataFrame([],columns=columns)
+
 
     for i in range(iterations):
         log(f'================== Iteration {i + 1} ==================\n')
@@ -84,7 +84,24 @@ if __name__ == "__main__":
         if threads> 0:
             cmd[2] = str(threads)
             
-        output = subprocess.check_output(cmd).decode()
-        log(output)
-    
-    f.close()
+        lines = subprocess.check_output(cmd)\
+            .decode()\
+            .splitlines()
+
+        output_dict = {
+            'n'     : int(lines[0].split(' ')[-1].strip()),
+            'p'     : int(lines[1].split(' ')[-1].strip()),
+            'q'     : int(lines[2].split(' ')[-1].strip()),
+            'ms'    : int(lines[3].split(' ')[-2].strip()),
+            'sec'   : int(lines[4].split(' ')[-2].strip()),
+            'min'   : int(lines[5].split(' ')[-2].strip()),
+        }
+
+        passed = n == output_dict['n'] and (p == output_dict['p'] or p == output_dict['q']) and (q == output_dict['p'] or q == output_dict['q'])
+
+        
+        df = pd.DataFrame([length * 2, passed, output_dict['ms'], output_dict['sec'], output_dict['min'], n, p, q])
+
+        data = data.append(df)
+
+    data.to_csv(filename)
