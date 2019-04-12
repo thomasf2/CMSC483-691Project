@@ -1,55 +1,32 @@
 #include "stdio.h"
 #include "stdlib.h"
 #include <gmpxx.h>
-//#include "pthread.h"
+
 #include <thread>
 #include <atomic>
 #include <ctime>
 #include <mutex>
 #include <condition_variable>
 #include <iostream>
+#include <chrono>
 #include <vector>
-/*
-bool isprime(mpz_class n){
-  if (n == 2){return true; }
-  if (n == 3){return true; }
-  if (n % 2 == 0){return false;}
-  if (n % 3 == 0){return false;}
-
-  mpz_class i = 5;
-  mpz_class w = 2;
-
-  while (i * i <= n){
-    if (n % i == 0){printf("IS NOT THE FATHER\n");return false;}
-    i += w;
-    w = 6 - w;
-  }
-  printf("IS THE FATHER\n");
-  return true;
-
-}
-*/
-
-
-/*
-mpz_class abso(mpz_class a)     //fn to return absolute value
+mpz_class abso(mpz_class a) //fn to return absolute value
 {
-    return a>0?a:-a;
+  return a > 0 ? a : -a;
 }
 int recur_depth = 0;
-*/
-mpz_class gcd(mpz_class a,mpz_class b)    //Euclidean GCD recursive fn
+
+mpz_class gcd(mpz_class a, mpz_class b) //Euclidean GCD recursive fn
 {
-    if(b==0)
-        return a;
-    else{
-      return gcd(b,a%b);
-    }
+  if (b == 0)
+    return a;
+  else
+  {
+    return gcd(b, a % b);
+  }
 }
 
-
-
-int main(int argc, char *argv[])  //Driver Program
+int main(int argc, char *argv[]) //Driver Program
 {
     srand(time(NULL));
     if (argc < 2 || argc > 3) {
@@ -67,12 +44,10 @@ int main(int argc, char *argv[])  //Driver Program
             num_threads = x;
         }
         catch (std::invalid_argument const &ex) {
-            std::cerr << "Invalid threads option: " << arg << ". Assuming " << num_threads << " thre\
-ads" << std::endl;
+            std::cerr << "Invalid threads option: " << arg << ". Assuming " << num_threads << " thrads" << std::endl;
         }
         catch (std::out_of_range const &ex) {
-            std::cerr << "Invalid threads option: " << arg << ". Assuming " << num_threads << " thre\
-ads" << std::endl;
+            std::cerr << "Invalid threads option: " << arg << ". Assuming " << num_threads << " threads" << std::endl;
         }
     }
 
@@ -98,6 +73,7 @@ ads" << std::endl;
     std::cout << "Starting " << num_threads  << "  threads for number " << n << std::endl;
     
     //cl = clock();
+    auto start = std::chrono::steady_clock::now();
     for(int i = 0; i < num_threads; i++){
 
        threads[i] = std::thread([i, &n, &p, &running, &cond]{
@@ -126,12 +102,14 @@ ads" << std::endl;
 	       g = gcd(abs(x-y),  n);
 	     }
 	   }
+	   p = g;
 	   std::cout << "THE LOOP FINISHED thread " << i << " found " << g << std::endl;
 	   running = false;
 	   cond.notify_all();
-	   p = g;
+
 	   return;
 	 });
+       
        threads[i].detach();
     }
 
@@ -142,9 +120,25 @@ ads" << std::endl;
         return p != 0;
     });
 
-    std::cout << "THE END I GUESS"<< std::endl;
-    std::cout << "We Found " << p << " and " << n/p <<  std::endl;
     
-      
-    return 0;
+  q = n / p;
+
+  auto end = std::chrono::steady_clock::now();
+
+  std::cout << "n: " << n << std::endl;
+  std::cout << "p: " << p << std::endl;
+  std::cout << "q: " << q << std::endl;
+  std::cout << "Elapsed time in milliseconds : "
+            << std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count()
+            << " ms" << std::endl;
+
+  std::cout << "Elapsed time in seconds : "
+            << std::chrono::duration_cast<std::chrono::seconds>(end - start).count()
+            << " sec" << std::endl;
+
+  std::cout << "Elapsed time in minutes : "
+            << std::chrono::duration_cast<std::chrono::minutes>(end - start).count()
+            << " mins" << std::endl;
+
+  return 0;
 }
