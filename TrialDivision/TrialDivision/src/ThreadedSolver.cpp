@@ -51,7 +51,7 @@ TDivResult ThreadedSolver::solve(mpz_class & n)
             high = (div_start - high < chunk_size) ? div_start : high;
             high = (high % 2 == 0) ? high + 1 : high;
             
-            #if defined(LOGOUT_PUT)
+            #if defined(LOG_OUTPUT)
             std::cout << "Thread " << i << " looking for prime factors from " << low << " to " << high << std::endl;
             #endif
 
@@ -62,7 +62,7 @@ TDivResult ThreadedSolver::solve(mpz_class & n)
                 }
 
                 if ((n % high) == 0) {
-                    #if defined(LOGOUT_PUT)
+                    #if defined(LOG_OUTPUT)
                     std::cout << "Thread " << i << " has found a prime. high = " << high << " low = " << low << std::endl;
                     #endif
                     p = high;
