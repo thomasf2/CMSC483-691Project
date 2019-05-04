@@ -1,0 +1,47 @@
+[
+{
+  "directory": "/home/iboutsikas/CMSC483-691Project/QuadraticSieve/build/QuadraticSieve",
+  "command": "/bin/g++    -O3 -DNDEBUG   -pthread -o CMakeFiles/qs.dir/main.cpp.o -c /home/iboutsikas/CMSC483-691Project/QuadraticSieve/QuadraticSieve/main.cpp",
+  "file": "/home/iboutsikas/CMSC483-691Project/QuadraticSieve/QuadraticSieve/main.cpp"
+},
+{
+  "directory": "/home/iboutsikas/CMSC483-691Project/QuadraticSieve/build/QuadraticSieve",
+  "command": "/bin/g++    -O3 -DNDEBUG   -pthread -o CMakeFiles/qs.dir/src/QS.cpp.o -c /home/iboutsikas/CMSC483-691Project/QuadraticSieve/QuadraticSieve/src/QS.cpp",
+  "file": "/home/iboutsikas/CMSC483-691Project/QuadraticSieve/QuadraticSieve/src/QS.cpp"
+},
+{
+  "directory": "/home/iboutsikas/CMSC483-691Project/QuadraticSieve/build/QuadraticSieve",
+  "command": "/bin/g++    -O3 -DNDEBUG   -pthread -o CMakeFiles/qs.dir/src/eratosthenes.cpp.o -c /home/iboutsikas/CMSC483-691Project/QuadraticSieve/QuadraticSieve/src/eratosthenes.cpp",
+  "file": "/home/iboutsikas/CMSC483-691Project/QuadraticSieve/QuadraticSieve/src/eratosthenes.cpp"
+},
+{
+  "directory": "/home/iboutsikas/CMSC483-691Project/QuadraticSieve/build/QuadraticSieve",
+  "command": "/bin/gcc   -O3 -DNDEBUG   -pthread -fopenmp -o CMakeFiles/qs.dir/src/gmp-patch.c.o   -c /home/iboutsikas/CMSC483-691Project/QuadraticSieve/QuadraticSieve/src/gmp-patch.c",
+  "file": "/home/iboutsikas/CMSC483-691Project/QuadraticSieve/QuadraticSieve/src/gmp-patch.c"
+},
+{
+  "directory": "/home/iboutsikas/CMSC483-691Project/QuadraticSieve/build/QuadraticSieve",
+  "command": "/bin/g++    -O3 -DNDEBUG   -pthread -o CMakeFiles/qs.dir/src/linear-algebra/gauss-elimination.cpp.o -c /home/iboutsikas/CMSC483-691Project/QuadraticSieve/QuadraticSieve/src/linear-algebra/gauss-elimination.cpp",
+  "file": "/home/iboutsikas/CMSC483-691Project/QuadraticSieve/QuadraticSieve/src/linear-algebra/gauss-elimination.cpp"
+},
+{
+  "directory": "/home/iboutsikas/CMSC483-691Project/QuadraticSieve/build/QuadraticSieve",
+  "command": "/bin/g++    -O3 -DNDEBUG   -pthread -o CMakeFiles/qs.dir/src/linear-algebra/matrix.cpp.o -c /home/iboutsikas/CMSC483-691Project/QuadraticSieve/QuadraticSieve/src/linear-algebra/matrix.cpp",
+  "file": "/home/iboutsikas/CMSC483-691Project/QuadraticSieve/QuadraticSieve/src/linear-algebra/matrix.cpp"
+},
+{
+  "directory": "/home/iboutsikas/CMSC483-691Project/QuadraticSieve/build/QuadraticSieve",
+  "command": "/bin/g++    -O3 -DNDEBUG   -pthread -o CMakeFiles/qs.dir/src/math-utils.cpp.o -c /home/iboutsikas/CMSC483-691Project/QuadraticSieve/QuadraticSieve/src/math-utils.cpp",
+  "file": "/home/iboutsikas/CMSC483-691Project/QuadraticSieve/QuadraticSieve/src/math-utils.cpp"
+},
+{
+  "directory": "/home/iboutsikas/CMSC483-691Project/QuadraticSieve/build/QuadraticSieve",
+  "command": "/bin/g++    -O3 -DNDEBUG   -pthread -o CMakeFiles/qs.dir/src/smooth-base.cpp.o -c /home/iboutsikas/CMSC483-691Project/QuadraticSieve/QuadraticSieve/src/smooth-base.cpp",
+  "file": "/home/iboutsikas/CMSC483-691Project/QuadraticSieve/QuadraticSieve/src/smooth-base.cpp"
+},
+{
+  "directory": "/home/iboutsikas/CMSC483-691Project/QuadraticSieve/build/QuadraticSieve",
+  "command": "/bin/g++    -O3 -DNDEBUG   -pthread -o CMakeFiles/qs.dir/src/smooth-number.cpp.o -c /home/iboutsikas/CMSC483-691Project/QuadraticSieve/QuadraticSieve/src/smooth-number.cpp",
+  "file": "/home/iboutsikas/CMSC483-691Project/QuadraticSieve/QuadraticSieve/src/smooth-number.cpp"
+}
+]

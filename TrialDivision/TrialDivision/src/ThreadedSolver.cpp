@@ -57,7 +57,7 @@ TDivResult ThreadedSolver::solve(mpz_class & n)
 
             while (true) {
 
-                if (!running.load()) {
+                if (!running.load() || high == 1) {
                     return;
                 }
 

@@ -1,8 +1,4 @@
-bin/
-!bin/.gitkeep
 
-build/
-!build/.gitkeep
 # Created by https://www.gitignore.io/api/c,c++,visualstudio,visualstudiocode
 # Edit at https://www.gitignore.io/?templates=c,c++,visualstudio,visualstudiocode
 
