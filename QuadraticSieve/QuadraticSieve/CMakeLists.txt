@@ -20,7 +20,7 @@ include_directories(${MPFR_INCLUDE_DIR})
 
 find_package(OpenMP)
 
-set(LIBS ${LIBS} gmp gmpxx Threads::Threads ${MPFR_LIBRARy} OpenMP::OpenMP_C)
+set(LIBS ${LIBS} gmp gmpxx Threads::Threads ${MPFR_LIBRARIES} OpenMP::OpenMP_C)
 
 file(GLOB THE_SOURCE
 	"src/**/*.cpp"
