@@ -10,7 +10,7 @@ set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/bin/${CMAKE_SYSTEM_NAME}_${CMAKE_
 
 find_package(GMP REQUIRED)
 
-# add_definitions(-DLOG_OUTPUT)
+# add_definitions(-DSHOW_STATUS_MESSAGES)
 
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)
@@ -20,7 +20,7 @@ include_directories(${MPFR_INCLUDE_DIR})
 
 find_package(OpenMP)
 
-set(LIBS ${LIBS} gmp gmpxx Threads::Threads ${MPFR_LIBRARIES} OpenMP::OpenMP_C)
+set(LIBS ${LIBS} gmp gmpxx Threads::Threads ${MPFR_LIBRARy} OpenMP::OpenMP_C)
 
 file(GLOB THE_SOURCE
 	"src/**/*.cpp"
