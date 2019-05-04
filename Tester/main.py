@@ -57,7 +57,7 @@ if __name__ == "__main__":
     filename = f'{program}.csv'
     
     data = None
-    columns=['Bits','Passed','Time(ms)','Time(sec)','Time(mins)','n','p','q']
+    #columns=['Bits','Passed','Time(ms)','Time(sec)','Time(mins)','n','p','q']
     
     if os.path.exists(filename):
         data = pd.read_csv(filename)
@@ -83,7 +83,7 @@ if __name__ == "__main__":
 
         cmd = [f'./{program}', str(n)]
         if threads> 0:
-            cmd[2] = str(threads)
+            cmd.append( str(threads))
             
         lines = subprocess.check_output(cmd)\
             .decode()\
@@ -91,12 +91,13 @@ if __name__ == "__main__":
 
 
         output_dict = {
-            'n'     : int(lines[0].split(' ')[-1].strip()),
-            'p'     : int(lines[1].split(' ')[-1].strip()),
-            'q'     : int(lines[2].split(' ')[-1].strip()),
-            'ms'    : int(lines[3].split(' ')[-2].strip()),
-            'sec'   : int(lines[4].split(' ')[-2].strip()),
-            'min'   : int(lines[5].split(' ')[-2].strip()),
+            'n'      : int(lines[0].split(' ')[-1].strip()),
+            'p'      : int(lines[1].split(' ')[-1].strip()),
+            'q'      : int(lines[2].split(' ')[-1].strip()),
+            'ms'     : int(lines[3].split(' ')[-2].strip()),
+            'sec'    : int(lines[4].split(' ')[-2].strip()),
+            'min'    : int(lines[5].split(' ')[-2].strip()),
+            'Threads': threads
         }
 
         print(output_dict)
@@ -106,12 +107,15 @@ if __name__ == "__main__":
                  and (q == output_dict['p'] or q == output_dict['q'])
 
 
-        d = {"Bits": length * 2, "Passed": passed, "Time(ms)": output_dict['ms'],\
-             "Time(sec)": output_dict['sec'],"Time(mins)": output_dict['min'], \
-             "n":output_dict["n"],  "p": output_dict["p"], "q":output_dict["q"]}
+        d = {"Bits": length * 2, "Passed": passed, "Time(ms)": output_dict['ms'],  \
+             "Time(sec)": output_dict['sec'],"Time(mins)": output_dict['min'],     \
+             "n":str(output_dict["n"]),  "p": output_dict["p"], "q":output_dict["q"],   \
+             "Threads":output_dict["Threads"]\
+        }
         d = pd.DataFrame(d, index =[0])
 
         data = data.append(d)
-        print(data)
+        #print(data)
 
+    print(data)
     data.to_csv(filename, mode = "w", index=False)
