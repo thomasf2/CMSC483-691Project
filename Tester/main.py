@@ -3,7 +3,6 @@
 from Crypto.Util import number
 import pandas as pd
 import os
-#import getopt
 import sys
 import subprocess
 import time
@@ -11,18 +10,6 @@ import argparse
 
 def log(msg):
     print(msg)
-
-#def print_usage(scriptname):
-#    print((
-#        f'Usage: {scriptname} args\n'
-#        f'Args can be:\n'
-#        f'[-h | --help]                 Prints this message\n'
-#        f'[-l | --length] <bits>        Specifies the numbr of bits for the two primes. The final key will be 2 * bits long.\n'
-#        f'[-p | --program] <program>    The program to execute the tests on.\n'
-#        f'[-i | --iterations] <its>     How many times to run the program.\n'
-#        f'[-t | --threads]              How many threads the program under test is gonna potentially use.\n'    
-#    )
-#    )
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -35,35 +22,6 @@ if __name__ == "__main__":
     parser.add_argument("-t", "--threads", default=0, type=int,
                         help="How many threads the program under test is gonna potentially use.")
     args = parser.parse_args()
-
-#    length = 64
-#    program = 'tdiv'
-#    iterations = 5
-#    threads = 0
-#
-#    # Parse command line arguments
-#    unixOptions = "hl:p:i:t:"
-#    gnuOptions = ["help", "length=", "program=", "iterations=", "threads="]
-#
-#    try:  
-#        arguments, values = getopt.getopt(sys.argv[1:], unixOptions, gnuOptions)
-#    except getopt.error as err:  
-#        # output error, and return with an error code
-#        print (str(err))
-#        sys.exit(2)
-#
-#    for arg, val in arguments:
-#        if arg in ("-h", "--help"):
-#            print_usage(sys.argv[0])
-#            sys.exit(0)
-#        elif arg in ("-l", "--length"):
-#            length = int(val)
-#        elif arg in ("-p", "--program"):
-#            program = val
-#        elif arg in ("-i", "--iterations"):
-#            iterations = int(val)
-#        elif arg in ("-t", "--threads"):
-#            threads = int(val)
 
     filename = f'{args.program}.csv'
     
