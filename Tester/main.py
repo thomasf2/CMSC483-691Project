@@ -62,7 +62,8 @@ if __name__ == "__main__":
     if os.path.exists(filename):
         data = pd.read_csv(filename)
     else:
-        data = pd.DataFrame([],columns=columns)
+        #data = pd.DataFrame([],columns=columns)
+        data = pd.DataFrame()
 
 
     for i in range(iterations):
@@ -88,6 +89,7 @@ if __name__ == "__main__":
             .decode()\
             .splitlines()
 
+
         output_dict = {
             'n'     : int(lines[0].split(' ')[-1].strip()),
             'p'     : int(lines[1].split(' ')[-1].strip()),
@@ -97,11 +99,19 @@ if __name__ == "__main__":
             'min'   : int(lines[5].split(' ')[-2].strip()),
         }
 
-        passed = n == output_dict['n'] and (p == output_dict['p'] or p == output_dict['q']) and (q == output_dict['p'] or q == output_dict['q'])
+        print(output_dict)
+        print("n", n, "p", p, "q", q)
+        passed =      n == output_dict['n'] \
+                 and (p == output_dict['p'] or p == output_dict['q'])\
+                 and (q == output_dict['p'] or q == output_dict['q'])
 
-        
-        df = pd.DataFrame([length * 2, passed, output_dict['ms'], output_dict['sec'], output_dict['min'], n, p, q])
 
-        data = data.append(df)
+        d = {"Bits": length * 2, "Passed": passed, "Time(ms)": output_dict['ms'],\
+             "Time(sec)": output_dict['sec'],"Time(mins)": output_dict['min'], \
+             "n":output_dict["n"],  "p": output_dict["p"], "q":output_dict["q"]}
+        d = pd.DataFrame(d, index =[0])
 
-    data.to_csv(filename)
+        data = data.append(d)
+        print(data)
+
+    data.to_csv(filename, mode = "w", index=False)
