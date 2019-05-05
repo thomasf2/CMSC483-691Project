@@ -89,33 +89,44 @@ if __name__ == "__main__":
             .decode()\
             .splitlines()
 
+        lines = [line.strip() for line in lines]
+        lines = [x for x in lines if x]
 
-        output_dict = {
-            'n'      : int(lines[0].split(' ')[-1].strip()),
-            'p'      : int(lines[1].split(' ')[-1].strip()),
-            'q'      : int(lines[2].split(' ')[-1].strip()),
-            'ms'     : int(lines[3].split(' ')[-2].strip()),
-            'sec'    : int(lines[4].split(' ')[-2].strip()),
-            'min'    : int(lines[5].split(' ')[-2].strip()),
-            'Threads': threads
-        }
+        d = None
 
-        print(output_dict)
-        print("n", n, "p", p, "q", q)
-        passed =      n == output_dict['n'] \
-                 and (p == output_dict['p'] or p == output_dict['q'])\
-                 and (q == output_dict['p'] or q == output_dict['q'])
+        try:
+            output_dict = {
+                'n'      : int(lines[0].split(' ')[-1].strip()),
+                'p'      : int(lines[1].split(' ')[-1].strip()),
+                'q'      : int(lines[2].split(' ')[-1].strip()),
+                'ms'     : int(lines[3].split(' ')[-2].strip()),
+                'sec'    : int(lines[4].split(' ')[-2].strip()),
+                'min'    : int(lines[5].split(' ')[-2].strip()),
+                'Threads': threads
+            }
+
+            print(output_dict)
+            print("n", n, "p", p, "q", q)
+            passed =      n == output_dict['n'] \
+                    and (p == output_dict['p'] or p == output_dict['q'])\
+                    and (q == output_dict['p'] or q == output_dict['q'])
 
 
-        d = {"Bits": length * 2, "Passed": passed, "Time(ms)": output_dict['ms'],  \
-             "Time(sec)": output_dict['sec'],"Time(mins)": output_dict['min'],     \
-             "n":str(output_dict["n"]),  "p": output_dict["p"], "q":output_dict["q"],   \
-             "Threads":output_dict["Threads"]\
-        }
-        d = pd.DataFrame(d, index =[0])
-
-        data = data.append(d)
-        #print(data)
+            d = {"Bits": length * 2, "Passed": passed, "Time(ms)": output_dict['ms'],  \
+                "Time(sec)": output_dict['sec'],"Time(mins)": output_dict['min'],     \
+                "n":str(output_dict["n"]),  "p": output_dict["p"], "q":output_dict["q"],   \
+                "Threads":output_dict["Threads"]\
+            }
+            d = pd.DataFrame(d, index =[0])
+        except error:
+            d = {"Bits": length * 2, "Passed": "Failed", "Time(ms)": None,  \
+                "Time(sec)": None,"Time(mins)": None,     \
+                "n":str(output_dict["n"]),  "p": None, "q":None,   \
+                "Threads":output_dict["Threads"]\
+            }
+        finally:
+            data = data.append(d)
+            print(data)
 
     print(data)
     data.to_csv(filename, mode = "w", index=False)
