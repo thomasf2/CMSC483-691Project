@@ -92,9 +92,9 @@ if __name__ == "__main__":
             .splitlines()
         lines = [line for line in lines if not line.isspace() and line]
 
-        print(f'Output: \n ${output}')
+        print(f'Output: \n {output}')
         
-        print(f'Lines: \n ${lines}')
+        print(f'Lines: \n {lines}')
         # lines = [line.strip() for line in lines]
         # lines = [x for x in lines if x]
 
