@@ -42,19 +42,19 @@ void QSParallel::Sieve()
 {
 	//Set num threads.
 	omp_set_num_threads(this->nb_threads);
-	dcout << "[[Parallel Sieve() using " << this->nb_threads << " threads.]]\n";
+	// dcout << "[[Parallel Sieve() using " << this->nb_threads << " threads.]]\n";
 
 	mpz_class x = sqrt(this->_N);	//x goes though sqrt(N), sqrt(N)+1, sqrt(N)+2..
 	if(x * x == this->_N)			//N is a perfect square, factored!
 	{
-		dcout << "Factored! N = " << x << "²" << "\n";
+		// dcout << "Factored! N = " << x << "²" << "\n";
 		SetFactors(x, x);
 		return;
 	}
 	++x;		//Start from sqrt(N)+1
 
 	SmoothBase smooth_base (this->_N);
-	dcout << "Smooth Base = " << smooth_base.GetBase() << "\t\n";
+	// dcout << "Smooth Base = " << smooth_base.GetBase() << "\t\n";
 
 	this->SetupSmoothBase(smooth_base);
 
@@ -73,10 +73,10 @@ void QSParallel::Sieve()
 	mpz_class starting_x_current_round;  //goes through sqrt(N), sqrt(N)+SIEVING_STEP ...
 	mpz_class x_idx;
 
-	TIMER_DECLARE(sieving_timer);
-	TIMER_START(sieving_timer);
-	dcout << "\n";
-	dcout << "\n";
+	// TIMER_DECLARE(sieving_timer);
+	// TIMER_START(sieving_timer);
+	// dcout << "\n";
+	// dcout << "\n";
 
 	starting_x_current_round = x;
 
@@ -85,10 +85,10 @@ void QSParallel::Sieve()
 	{
 		x = starting_x_current_round;
 
-		dcout << "\r\tSieving at " << starting_x_current_round << "\t";
-		dcout << "Smooth numbers found\t " << nb_discovered_smooth_numbers
-			  << "/" << smooth_base_size << "          " << std::ends;
-		dcout.dflush();
+		// dcout << "\r\tSieving at " << starting_x_current_round << "\t";
+		// dcout << "Smooth numbers found\t " << nb_discovered_smooth_numbers
+			//   << "/" << smooth_base_size << "          " << std::ends;
+		// dcout.dflush();
 
 		//initialize (x, x², exponent vector) for the SIEVING_STEP next x.
 		for(int i=0; i<SIEVING_STEP; ++i)
@@ -218,12 +218,12 @@ void QSParallel::Sieve()
 	}
 
 	mpz_clear(tmp_prime_p);
-	dcout << "\r\tSieving at " << starting_x_current_round << "\t";
-	dcout << "Smooth numbers found\t " << nb_discovered_smooth_numbers
-		  << "/" << smooth_base_size << "          " << std::ends;
-	dcout.dflush();
-	dcout << "\n";
-	dcout << "\n";
+	// dcout << "\r\tSieving at " << starting_x_current_round << "\t";
+	// dcout << "Smooth numbers found\t " << nb_discovered_smooth_numbers
+	// 	  << "/" << smooth_base_size << "          " << std::ends;
+	// dcout.dflush();
+	// dcout << "\n";
+	// dcout << "\n";
 
 	TIMER_STOP(sieving_timer);
 	TIMER_REPORT(sieving_timer);

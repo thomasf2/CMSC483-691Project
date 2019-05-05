@@ -57,9 +57,9 @@ void QS::Factor()
 	}
 	catch(std::exception &e)
 	{
-		std::cout << "[[ERROR]] Cannot setup smooth base, the integer is too large" << std::endl
-				  << "Exception message:\t"
-				  << e.what () << std::endl;
+		// std::cout << "[[ERROR]] Cannot setup smooth base, the integer is too large" << std::endl
+		// 		  << "Exception message:\t"
+		// 		  << e.what () << std::endl;
 
 		return;
 	}
@@ -74,12 +74,12 @@ void QS::Factor()
 //This can be parallelized. Probably??
 void QS::SetupSmoothBase (SmoothBase& B)
 {
-	TIMER_DECLARE(smooth_base_tm);
-	TIMER_START(smooth_base_tm);
+	// TIMER_DECLARE(smooth_base_tm);
+	// TIMER_START(smooth_base_tm);
 		B.Setup();
-	TIMER_STOP(smooth_base_tm);
-	dcout << "[Number of primes in base " << B.primes.size() << "]\t";
-	TIMER_REPORT(smooth_base_tm);
+	// TIMER_STOP(smooth_base_tm);
+	// dcout << "[Number of primes in base " << B.primes.size() << "]\t";
+	// TIMER_REPORT(smooth_base_tm);
 }
 
 void QS::Sieve()
@@ -87,14 +87,14 @@ void QS::Sieve()
 	mpz_class x = sqrt(this->_N);	//x goes though sqrt(N), sqrt(N)+1, sqrt(N)+2..
 	if(x * x == this->_N)			//N is a perfect square, factored!
 	{
-		dcout << "Factored! N = " << x << "²" << "\n";
+		// dcout << "Factored! N = " << x << "²" << "\n";
 		SetFactors(x, x);
 		return;
 	}
 	++x;		//Start from sqrt(N)+1
 
 	SmoothBase smooth_base (this->_N);
-	dcout << "Smooth Base = " << smooth_base.GetBase() << "\t\n";
+	// dcout << "Smooth Base = " << smooth_base.GetBase() << "\t\n";
 
 	this->SetupSmoothBase(smooth_base);
 
@@ -113,10 +113,10 @@ void QS::Sieve()
 	mpz_class starting_x_current_round;  //goes through sqrt(N), sqrt(N)+SIEVING_STEP ...
 	mpz_class x_idx;
 
-	TIMER_DECLARE(sieving_timer);
-	TIMER_START(sieving_timer);
-	dcout << "\n";
-	dcout << "\n";
+	// TIMER_DECLARE(sieving_timer);
+	// TIMER_START(sieving_timer);
+	// dcout << "\n";
+	// dcout << "\n";
 
 	starting_x_current_round = x;
 
@@ -125,10 +125,10 @@ void QS::Sieve()
 	{
 		x = starting_x_current_round;
 
-		dcout << "\r\tSieving at " << starting_x_current_round << "\t";
-		dcout << "Smooth numbers found\t " << nb_discovered_smooth_numbers
-			  << "/" << smooth_base_size << "          " << std::ends;
-		dcout.dflush();
+		// dcout << "\r\tSieving at " << starting_x_current_round << "\t";
+		// dcout << "Smooth numbers found\t " << nb_discovered_smooth_numbers
+		// 	  << "/" << smooth_base_size << "          " << std::ends;
+		// dcout.dflush();
 
 		//initialize (x, x², exponent vector) for the SIEVING_STEP next x.
 		for(int i=0; i<SIEVING_STEP; ++i)
@@ -253,15 +253,15 @@ void QS::Sieve()
 	}
 
 	mpz_clear(tmp_prime_p);
-	dcout << "\r\tSieving at " << starting_x_current_round << "\t";
-	dcout << "Smooth numbers found\t " << nb_discovered_smooth_numbers
-		  << "/" << smooth_base_size << "          " << std::ends;
-	dcout.dflush();
-	dcout << "\n";
-	dcout << "\n";
+	// dcout << "\r\tSieving at " << starting_x_current_round << "\t";
+	// dcout << "Smooth numbers found\t " << nb_discovered_smooth_numbers
+	// 	  << "/" << smooth_base_size << "          " << std::ends;
+	// dcout.dflush();
+	// dcout << "\n";
+	// dcout << "\n";
 
-	TIMER_STOP(sieving_timer);
-	TIMER_REPORT(sieving_timer);
+	// TIMER_STOP(sieving_timer);
+	// TIMER_REPORT(sieving_timer);
 
 	//Utils::dumpMatrixAsPbmImage(MATRIX_STATS, "stats.pbm");
 }
@@ -269,33 +269,33 @@ void QS::Sieve()
 
 void QS::PerformeGaussianElimination()
 {
-	dcout << "\n";
-	dcout << "<< Performing Linear Algebra >>" << "\n";
-	TIMER_DECLARE(gauss);
-	TIMER_START(gauss);
+	// dcout << "\n";
+	// dcout << "<< Performing Linear Algebra >>" << "\n";
+	// TIMER_DECLARE(gauss);
+	// TIMER_START(gauss);
 
 	this->gauss.Echelonize(this->_M);
 	this->linear_relations = gauss.GetLinearRelations();
 
-	TIMER_STOP(gauss);
-	TIMER_REPORT(gauss);
+	// TIMER_STOP(gauss);
+	// TIMER_REPORT(gauss);
 
-	dcout << "\tLinear dependent relations found : " << this->linear_relations.size ()
-		  << "\n";
+	// dcout << "\tLinear dependent relations found : " << this->linear_relations.size ()
+	// 	  << "\n";
 	//Utils::dumpMatrixAsPbmImage(M, "M.pbm");
 }
 
 
 void QS::FactorUsingLinearRelations()
 {
-	dcout << "\n";
-	dcout << "<< Factoring >>\n";
+	// dcout << "\n";
+	// dcout << "<< Factoring >>\n";
 	mpz_class x_side, y_side, factor;
 	mpz_t fctr; mpz_init(fctr);
 
 	for(int i = 0; i < this->gauss.GetNbLinearRelations (); ++i)
 	{
-		dcout << "Trying relation " << i << "\n";
+		// dcout << "Trying relation " << i << "\n";
 		x_side = 1;
 		y_side = 1;
 
@@ -329,15 +329,15 @@ void QS::FactorUsingLinearRelations()
 
 	if(factor == 1 || factor == this->_N)
 	{
-		dcout << ">>>> Failed to factor " << this->_N << " <<<<\t"
-				<< "Try using more linear relations" << "\n";
+		// dcout << ">>>> Failed to factor " << this->_N << " <<<<\t"
+		// 		<< "Try using more linear relations" << "\n";
 	}
 	else
 	{
-		dcout << "\n";
-		dcout << ">>>>>>> Factored " << this->_N << "\n";
-		dcout << "\t Factor 1: " << factor << "\n";
-		dcout << "\t Factor 2: " << this->_N/factor << "\n";
+		// dcout << "\n";
+		// dcout << ">>>>>>> Factored " << this->_N << "\n";
+		// dcout << "\t Factor 1: " << factor << "\n";
+		// dcout << "\t Factor 2: " << this->_N/factor << "\n";
 
 		SetFactors(factor, this->_N/factor);
 	}

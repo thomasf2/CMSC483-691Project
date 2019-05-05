@@ -84,11 +84,17 @@ if __name__ == "__main__":
         cmd = [f'./{program}', str(n)]
         if threads> 0:
             cmd.append( str(threads))
-            
-        lines = subprocess.check_output(cmd)\
-            .decode()\
+        
+        output = subprocess.check_output(cmd)\
+            .decode()
+        
+        lines = output\
             .splitlines()
         lines = [line for line in lines if not line.isspace() and line]
+
+        print(f'Output: \n ${output}')
+        
+        print(f'Lines: \n ${lines}')
         # lines = [line.strip() for line in lines]
         # lines = [x for x in lines if x]
 
