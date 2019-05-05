@@ -117,7 +117,7 @@ if __name__ == "__main__":
                 "Threads":output_dict["Threads"]\
             }
 
-        except error:
+        except:
             d = {"Bits": length * 2, "Passed": "Failed", "Time(ms)": None,  \
                 "Time(sec)": None,"Time(mins)": None,     \
                 "n":str(output_dict["n"]),  "p": None, "q":None,   \
