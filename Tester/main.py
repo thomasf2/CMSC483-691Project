@@ -92,11 +92,9 @@ if __name__ == "__main__":
             .splitlines()
         lines = [line for line in lines if not line.isspace() and line]
 
-        print(f'Output: \n {output}')
+        # print(f'Output: \n {output}')
         
-        print(f'Lines: \n {lines}')
-        # lines = [line.strip() for line in lines]
-        # lines = [x for x in lines if x]
+        # print(f'Lines: \n {lines}')
 
         d = None
 
@@ -119,7 +117,7 @@ if __name__ == "__main__":
 
             d = {"Bits": length * 2, "Passed": passed, "Time(ms)": output_dict['ms'],  \
                 "Time(sec)": output_dict['sec'],"Time(mins)": output_dict['min'],     \
-                "n":str(output_dict["n"]),  "p": output_dict["p"], "q":output_dict["q"],   \
+                "n":str(output_dict["n"]),  "p": str(output_dict["p"]), "q":str(output_dict["q"]),   \
                 "Threads":output_dict["Threads"]\
             }
 

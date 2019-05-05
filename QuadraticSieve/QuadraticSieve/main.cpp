@@ -4,7 +4,7 @@
 #include "src/QS-parallel.h"
 
 void print_usage(void) {
-    std::cout << "Usage: qs n <n_threads>\n" << std::endl;
+    std::cout << "Usage: qs n <n_threads>" << std::endl;
 }
 
 int main(int argc, char** argv)
