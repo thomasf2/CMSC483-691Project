@@ -16,6 +16,15 @@ class DebugCout : public std::ostream {
 public:
 	DebugCout() : std::ostream(std::cout.rdbuf()) { }
 
+	std::ostream &dflush() 
+	{ 
+	#if defined(SHOW_STATUS_MESSAGES)
+		std::cout.flush();
+		//static_cast<std::ostream&>(dcout) << v;
+	#endif
+		return (*this);
+	}
+
 };
 
 template <typename T>
