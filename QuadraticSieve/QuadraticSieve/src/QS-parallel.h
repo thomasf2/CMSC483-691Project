@@ -88,7 +88,7 @@ void QSParallel::Sieve()
 		dcout << "\r\tSieving at " << starting_x_current_round << "\t";
 		dcout << "Smooth numbers found\t " << nb_discovered_smooth_numbers
 			  << "/" << smooth_base_size << "          " << std::ends;
-		dcout.flush();
+		dcout.dflush();
 
 		//initialize (x, x², exponent vector) for the SIEVING_STEP next x.
 		for(int i=0; i<SIEVING_STEP; ++i)
@@ -221,7 +221,7 @@ void QSParallel::Sieve()
 	dcout << "\r\tSieving at " << starting_x_current_round << "\t";
 	dcout << "Smooth numbers found\t " << nb_discovered_smooth_numbers
 		  << "/" << smooth_base_size << "          " << std::ends;
-	std::cout.flush();
+	dcout.dflush();
 	dcout << "\n";
 	dcout << "\n";
 

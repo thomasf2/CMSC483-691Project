@@ -106,7 +106,6 @@ if __name__ == "__main__":
                 'Threads': threads
             }
 
-            print(output_dict)
             passed =      n == output_dict['n'] \
                     and (p == output_dict['p'] or p == output_dict['q'])\
                     and (q == output_dict['p'] or q == output_dict['q'])
@@ -117,7 +116,6 @@ if __name__ == "__main__":
                 "n":str(output_dict["n"]),  "p": output_dict["p"], "q":output_dict["q"],   \
                 "Threads":output_dict["Threads"]\
             }
-            d = pd.DataFrame(d, index =[0])
 
         except error:
             d = {"Bits": length * 2, "Passed": "Failed", "Time(ms)": None,  \
@@ -126,6 +124,8 @@ if __name__ == "__main__":
                 "Threads":output_dict["Threads"]\
             }
         finally:
+            print(d)
+            d = pd.DataFrame(d, index =[0])
             data = data.append(d)
             #print(data)
     print(data)
