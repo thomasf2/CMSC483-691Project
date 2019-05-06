@@ -27,6 +27,8 @@ Usage:
 '''
 
 import argparse
+import sys
+from Crypto.Util.number import getPrime, GCD, size, inverse
 
 def encrypt(msg, e, n):
     '''Encrypts a string msg with values e and n in 6 steps
@@ -111,5 +113,22 @@ if __name__ == "__main__":
         parser.error("argument -m/--message: cannot be empty")
 
     # Encryption Stuff
-    p, q, e, n, d = 63901,4289,23303243,274071389,237751907  
-    print(encrypt(args.message, e, n))
+    E = [3, 5, 17, 257, 65537]
+    i = 0
+    while True:
+        p = getPrime(int(args.bits / 2))
+        q = getPrime(int(args.bits / 2) + 1)
+        n = p * q
+        if len(bin(n)[2:]) == args.bits:
+            while GCD(E[i], n) != 1:
+                i += 1
+            e = E[i]
+            d = inverse(e, (p-1) * (q-1))
+            if d != 1:
+                break
+
+    print(args.message)
+    encrypted = encrypt(args.message, e, n)
+    print(encrypted)
+    decrypted = decrypt(encrypted, d, n)
+    print(decrypted)
