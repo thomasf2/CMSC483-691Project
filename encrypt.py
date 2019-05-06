@@ -27,8 +27,14 @@ Usage:
 '''
 
 import argparse
-import sys
 from Crypto.Util.number import getPrime, GCD, size, inverse
+
+# Helper functions defined here
+listToStr = lambda lst: ''.join(item for item in lst)
+listToStr.__doc__ = """Combinds all string elements of a list to a single string"""
+
+strToList = lambda string, size: [string[i:i+size] for i in range(0, len(string), size)]
+strToList.__doc__ = """Breaks up a string into a list of substrings of size size"""
 
 def encrypt(msg, e, n):
     '''Encrypts a string msg with values e and n in 6 steps
@@ -43,25 +49,20 @@ def encrypt(msg, e, n):
        to the number of bits in n.
     6) The chunks are joined together and converted to a number.
     '''
-    decryptChunkSize = len(bin(n)[2:])
-    chunkSize = int(decryptChunkSize / 8)
-
-    # Unreadable code, don't even try nerds
-    ## Read steps 2 to 5 in the docstring for English explanations
-    trans = [(lambda chunk: ''.join(hex(ord(c))[2:] for c in chunk)),
-             (lambda chunk: chunk + '0'*((chunkSize*2)-len(chunk))),
-             (lambda chunk: bin(pow(int(chunk, 16), e, n))[2:]),
-             (lambda chunk: ('0'*(decryptChunkSize-len(chunk))) + chunk)]
+    chunkSize = int(size(n) / 8)
 
     # Step 1: Break message up into chunks
-    msgChunks = [msg[i:i+chunkSize] for i in range(0, len(msg), chunkSize)]
-    # Step 2: ???????
-    for func in trans:
+    msgChunks = strToList(msg, chunkSize)
+    # Steps 2 to 5: Read docstring
+    for func in [(lambda chunk: ''.join(hex(ord(c))[2:] for c in chunk)),
+                 (lambda chunk: chunk + '0'*((chunkSize*2)-len(chunk))),
+                 (lambda chunk: bin(pow(int(chunk, 16), e, n))[2:]),
+                 (lambda chunk: chunk.zfill(size(n)))]:
         msgChunks = list(map(func, msgChunks))
     # Step 6: Merge chunks into a single string and convert to integer
-    return int(''.join(chunk for chunk in msgChunks), 2)
+    return int(listToStr(msgChunks), 2)
 
-def decrypt(num, d, n):
+def decrypt(msg, d, n):
     '''Decrypts a number num using values d and n
     
     Steps:
@@ -75,27 +76,20 @@ def decrypt(num, d, n):
     5) Merges all chunks and strips null padding if it
     was used during encryption
     '''
-    binN = bin(n)[2:]
-    binNum = bin(num)[2:]
-    decryptChunkSize = len(binN)
+    chunkSize = size(n)
 
-    # Unreadable code, don't even try nerds
-    ## Read steps 3 and 4 in the docstring for English explanations
-    trans = [(lambda chunk: hex(pow(int(chunk, 2), d, n))[2:]),
-             (lambda chunk: "".join(chr(int(chunk[i:i+2], 16)) for i in range(0, len(chunk), 2)))]
-
-    # Step 1: Pad the encrypted message with 0's
-    binNum = ('0'*(decryptChunkSize - (len(binNum) % decryptChunkSize))) + binNum
-    # Step 2: Break the encrypted message up into chunks
-    encryptedChunks = [binNum[i:i+decryptChunkSize] for i in range(0, len(binNum), decryptChunkSize)]
-    # Step 3: ???????
-    for func in trans:
+    # Step 1
+    binMsg = ('0'*(chunkSize - (size(msg) % chunkSize))) + bin(msg)[2:]
+    # Step 2
+    encryptedChunks = strToList(binMsg, chunkSize)
+    # Steps 3 to 4
+    for func in [(lambda chunk: hex(pow(int(chunk, 2), d, n))[2:]),
+                 (lambda chunk: "".join(chr(int(chunk[i:i+2], 16)) for i in range(0, len(chunk), 2)))]:
         encryptedChunks = list(map(func, encryptedChunks))
-    # Step 5: Merge decrpted chunks into string and remove null padding
-    return ''.join(chunk for chunk in encryptedChunks).rstrip(chr(0))
+    # Step 5
+    return listToStr(encryptedChunks).rstrip(chr(0))
 
 if __name__ == "__main__":
-    # Globals
     minBits = 15 # n can't be less than 32768
     maxBits = 128 # n can't be greater than 680564733841876926926749214863536422911
     
@@ -127,8 +121,9 @@ if __name__ == "__main__":
             if d != 1:
                 break
 
-    print(args.message)
+    # Prints the encrypted message
+#    print(args.message)
     encrypted = encrypt(args.message, e, n)
     print(encrypted)
-    decrypted = decrypt(encrypted, d, n)
-    print(decrypted)
+#    decrypted = decrypt(encrypted, d, n)
+#    print(decrypted)
