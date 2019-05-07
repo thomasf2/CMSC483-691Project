@@ -18,7 +18,7 @@
 #include "linear-algebra/matrix.h"
 
 
-#ifndef	ENABLE_TIMERS
+#if defined(SHOW_STATUS_MESSAGES)
 #define TIMER_DECLARE(s)  		\
 	timeval __timer_q_##s; 		\
 	timeval __timer_q_end_##s;	\

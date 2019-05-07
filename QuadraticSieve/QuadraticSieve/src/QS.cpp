@@ -74,12 +74,12 @@ void QS::Factor()
 //This can be parallelized. Probably??
 void QS::SetupSmoothBase (SmoothBase& B)
 {
-	// TIMER_DECLARE(smooth_base_tm);
-	// TIMER_START(smooth_base_tm);
-		B.Setup();
-	// TIMER_STOP(smooth_base_tm);
+	TIMER_DECLARE(smooth_base_tm);
+	TIMER_START(smooth_base_tm);
+	B.Setup();
+	TIMER_STOP(smooth_base_tm);
 	dcout << "[Number of primes in base " << B.primes.size() << "]\t";
-	// TIMER_REPORT(smooth_base_tm);
+	TIMER_REPORT(smooth_base_tm);
 }
 
 void QS::Sieve()
@@ -113,8 +113,8 @@ void QS::Sieve()
 	mpz_class starting_x_current_round;  //goes through sqrt(N), sqrt(N)+SIEVING_STEP ...
 	mpz_class x_idx;
 
-	// TIMER_DECLARE(sieving_timer);
-	// TIMER_START(sieving_timer);
+	TIMER_DECLARE(sieving_timer);
+	TIMER_START(sieving_timer);
 	dcout << "\n";
 	dcout << "\n";
 
@@ -260,8 +260,8 @@ void QS::Sieve()
 	dcout << "\n";
 	dcout << "\n";
 
-	// TIMER_STOP(sieving_timer);
-	// TIMER_REPORT(sieving_timer);
+	TIMER_STOP(sieving_timer);
+	TIMER_REPORT(sieving_timer);
 
 	//Utils::dumpMatrixAsPbmImage(MATRIX_STATS, "stats.pbm");
 }
@@ -271,14 +271,14 @@ void QS::PerformeGaussianElimination()
 {
 	dcout << "\n";
 	dcout << "<< Performing Linear Algebra >>" << "\n";
-	// TIMER_DECLARE(gauss);
-	// TIMER_START(gauss);
+	TIMER_DECLARE(gauss);
+	TIMER_START(gauss);
 
 	this->gauss.Echelonize(this->_M);
 	this->linear_relations = gauss.GetLinearRelations();
 
-	// TIMER_STOP(gauss);
-	// TIMER_REPORT(gauss);
+	TIMER_STOP(gauss);
+	TIMER_REPORT(gauss);
 
 	dcout << "\tLinear dependent relations found : " << this->linear_relations.size ()
 		  << "\n";

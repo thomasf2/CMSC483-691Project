@@ -73,8 +73,8 @@ void QSParallel::Sieve()
 	mpz_class starting_x_current_round;  //goes through sqrt(N), sqrt(N)+SIEVING_STEP ...
 	mpz_class x_idx;
 
-	// TIMER_DECLARE(sieving_timer);
-	// TIMER_START(sieving_timer);
+	TIMER_DECLARE(sieving_timer);
+	TIMER_START(sieving_timer);
 	dcout << "\n";
 	dcout << "\n";
 
@@ -225,8 +225,8 @@ void QSParallel::Sieve()
 	dcout << "\n";
 	dcout << "\n";
 
-	// TIMER_STOP(sieving_timer);
-	// TIMER_REPORT(sieving_timer);
+	TIMER_STOP(sieving_timer);
+	TIMER_REPORT(sieving_timer);
 
 	//Utils::dumpMatrixAsPbmImage(MATRIX_STATS, "stats.pbm");
 }
