@@ -124,7 +124,7 @@ if __name__ == "__main__":
         except:
             d = {"Bits": length * 2, "Passed": "Failed", "Time(ms)": None,  \
                 "Time(sec)": None,"Time(mins)": None,     \
-                "n":str(output_dict["n"]),  "p": None, "q":None,   \
+                "n":str(n),  "p": None, "q":None,   \
                 "Threads":output_dict["Threads"]\
             }
         finally:
